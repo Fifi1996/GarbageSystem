@@ -1,0 +1,53 @@
+{
+  "login.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/login.css",
+      "css/mui.min.css",
+      "js/mui.js",
+      "fonts/mui.ttf",
+      "js/app.js"
+    ],
+    "refer": [
+      "map2.html",
+      "map.html"
+    ]
+  },
+  "map2.html": {
+    "resources": [
+      "js/mui.js",
+      "js/map.js",
+      "js/app.js",
+      "img/1.png",
+      "img/flesh.png",
+      "login.html",
+      "img/person.png"
+    ],
+    "refer": [
+      "login.html",
+      "trash_detail.html"
+    ]
+  },
+  "trash_detail.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css"
+    ]
+  },
+  "map.html": {
+    "resources": [
+      "img/flesh.png",
+      "img/person.png",
+      "js/map.js"
+    ],
+    "refer": [
+      "trash_detail.html",
+      "person_info.html"
+    ]
+  },
+  "person_info.html": {
+    "resources": [
+      "css/mui.min.css"
+    ]
+  }
+}

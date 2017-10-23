@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>垃圾状态检测系统</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<!--样式-->
+		<style type="text/css">
+			.user-info {
+				width: 90%;
+				margin: 150px auto 0px;
+			}
+			.input-area-fontSize{
+				font-size:12px;
+			}
+		</style>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title" style="font-size: 12px;">具有自动分拣功能的校园垃圾桶定位清运管理系统</h1>
+		</header>
+		<div class="mui-content">
+			<div class="user-info">
+				<form id='login-form' class="mui-input-group">
+					<div class="mui-input-row">
+						<label>用户名</label>
+						<input id='account' type="text" class="mui-input-clear mui-input input-area-fontSize"  placeholder="请输入用户名">
+					</div>
+					<div class="mui-input-row">
+						<label>密码</label>
+						<input id='password' type="password" class="mui-input-clear mui-input input-area-fontSize" placeholder="请输入密码">
+					</div>
+				</form>
+				<form class="mui-input-group" style="margin-top: 24px;">
+					<ul class="mui-table-view mui-table-view-chevron" style="font-size: 13px;">
+						<li class="mui-table-view-cell">
+							保存密码
+							<div id="autoLogin" class="mui-switch">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>
+					</ul>
+				</form>
+				<div class="mui-content-padded" style="margin-top: 30px;">
+					<button id='login' class="mui-btn mui-btn-block mui-btn-primary" style="border-radius: 4%;">登    &nbsp; 录</button>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="js/mui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		document.getElementById("login").addEventListener('tap', function() {
+			var userName = document.getElementById("account").value.trim();
+			var userPassord = document.getElementById("password").value.trim();
+			if(userName == ' ' || userPassord == ' ' || userName.length == 0 || userPassord.length == 0) {
+				alert("请输入用户名和密码");
+				return;
+			} else {
+				plus.nativeUI.showWaiting("正在登陆中，请稍后.....");
+				mui.ajax(serverip + '/LoginServlet',{
+					data:{
+						user_name:userName,
+						user_passord:userPassord
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(data){
+						plus.nativeUI.closeWaiting();
+						if (data!=null) {
+							mui.openWindow({
+								url: 'map.html'
+							});
+							return;
+						} else{
+							console.log(data);
+							alert("用户名或者密码错误，请检查");
+							return;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						plus.nativeUI.closeWaiting();
+						console.log(errorThrown);
+						alert("网络异常，请检查网络设置");
+						return;
+					}
+				});
+			}
+		});
+	</script>
+</html>
